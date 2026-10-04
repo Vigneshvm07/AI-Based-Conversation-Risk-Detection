@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RiskSense | AI Conversation Risk Detection</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <span class="logo-icon">🛡️</span>
+        <span>Risk<span>Sense</span></span>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#analyzer">Analyzer</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#features">Features</a>
+    </nav>
+
+    <button class="nav-btn" onclick="scrollToAnalyzer()">Analyze Now</button>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="badge">● AI-POWERED CONVERSATION INTELLIGENCE</div>
+
+        <h1>
+            Detect Conversation
+            <span>Risks Before They Escalate.</span>
+        </h1>
+
+        <p>
+            Analyze conversations using AI-powered text intelligence
+            to identify threats, aggression, harassment, fraud,
+            manipulation and other potential communication risks.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="primary-btn" onclick="scrollToAnalyzer()">
+                Start Analysis →
+            </button>
+            <button class="secondary-btn" onclick="loadDemo()">
+                Try Demo
+            </button>
+        </div>
+
+        <div class="trust-row">
+            <div>✓ Real-Time Analysis</div>
+            <div>✓ Risk Classification</div>
+            <div>✓ Visual Insights</div>
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="shield">
+            🛡️
+        </div>
+
+        <div class="risk-card top-card">
+            <span class="dot red"></span>
+            <div>
+                <strong>Risk Detected</strong>
+                <small>High severity</small>
+            </div>
+            <b>87%</b>
+        </div>
+
+        <div class="conversation-card">
+            <div class="card-title">
+                <span>Conversation Monitor</span>
+                <span class="live">● LIVE</span>
+            </div>
+
+            <div class="message user">
+                <span>U</span>
+                <p>I'm really frustrated with this situation.</p>
+            </div>
+
+            <div class="message ai">
+                <span>AI</span>
+                <p>Potential aggression detected.</p>
+            </div>
+
+            <div class="risk-meter">
+                <div class="meter-label">
+                    <span>Conversation Risk</span>
+                    <strong>72%</strong>
+                </div>
+                <div class="meter">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="risk-card bottom-card">
+            <span class="shield-small">✓</span>
+            <div>
+                <strong>AI Protected</strong>
+                <small>Conversation monitored</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat">
+        <strong id="totalAnalyses">1,248</strong>
+        <span>Conversations Analyzed</span>
+    </div>
+
+    <div class="stat">
+        <strong id="highRisk">186</strong>
+        <span>High-Risk Conversations</span>
+    </div>
+
+    <div class="stat">
+        <strong>94.2%</strong>
+        <span>Detection Accuracy</span>
+    </div>
+
+    <div class="stat">
+        <strong>1.8s</strong>
+        <span>Average Analysis Time</span>
+    </div>
+</section>
+
+<section class="analyzer-section" id="analyzer">
+    <div class="section-heading">
+        <span>CONVERSATION ANALYZER</span>
+        <h2>Understand the Risk Behind Every Conversation</h2>
+        <p>
+            Enter a conversation and let RiskSense identify
+            potential communication risks.
+        </p>
+    </div>
+
+    <div class="analyzer-grid">
+
+        <div class="input-panel">
+            <div class="panel-header">
+                <div>
+                    <span class="small-label">INPUT</span>
+                    <h3>Conversation Text</h3>
+                </div>
+                <span class="secure">🔒 Secure</span>
+            </div>
+
+            <textarea id="conversationText"
+                placeholder="Paste or type a conversation here..."></textarea>
+
+            <div class="input-footer">
+                <span id="wordCount">0 words</span>
+                <button onclick="clearText()">Clear</button>
+            </div>
+
+            <div class="examples">
+                <span>Try an example:</span>
+                <button onclick="setExample('safe')">Safe</button>
+                <button onclick="setExample('aggressive')">Aggressive</button>
+                <button onclick="setExample('fraud')">Fraud</button>
+            </div>
+
+            <button class="analyze-btn" onclick="analyzeConversation()">
+                🧠 Analyze Conversation
+            </button>
+        </div>
+
+        <div class="result-panel">
+            <div class="result-header">
+                <div>
+                    <span class="small-label">AI ANALYSIS</span>
+                    <h3>Risk Assessment</h3>
+                </div>
+                <span id="statusBadge" class="status safe">
+                    ● Waiting
+                </span>
+            </div>
+
+            <div class="risk-score">
+                <div class="score-circle">
+                    <strong id="riskScore">0%</strong>
+                    <span>Risk Score</span>
+                </div>
+
+                <div class="risk-info">
+                    <span>Detected Risk Level</span>
+                    <h2 id="riskLevel">No Analysis</h2>
+                    <p id="riskDescription">
+                        Enter conversation text to begin analysis.
+                    </p>
+                </div>
+            </div>
+
+            <div class="risk-types">
+                <div>
+                    <span>⚠️</span>
+                    <strong id="threatScore">0%</strong>
+                    <small>Threat</small>
+                </div>
+
+                <div>
+                    <span>😡</span>
+                    <strong id="aggressionScore">0%</strong>
+                    <small>Aggression</small>
+                </div>
+
+                <div>
+                    <span>🎭</span>
+                    <strong id="manipulationScore">0%</strong>
+                    <small>Manipulation</small>
+                </div>
+
+                <div>
+                    <span>💳</span>
+                    <strong id="fraudScore">0%</strong>
+                    <small>Fraud</small>
+                </div>
+            </div>
+
+            <div class="detected-section">
+                <h4>Detected Indicators</h4>
+                <div id="indicators">
+                    <span class="empty-indicator">
+                        No indicators detected yet
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="dashboard" id="dashboard">
+    <div class="section-heading">
+        <span>RISK INTELLIGENCE</span>
+        <h2>Conversation Risk Dashboard</h2>
+        <p>Visualize risk patterns and detection trends.</p>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+            <div class="chart-title">
+                <div>
+                    <h3>Risk Detection Trend</h3>
+                    <span>Recent conversation analysis</span>
+                </div>
+                <span class="chart-badge">Last 7</span>
+            </div>
+            <canvas id="riskChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-title">
+                <div>
+                    <h3>Risk Category Distribution</h3>
+                    <span>Detected conversation risks</span>
+                </div>
+            </div>
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="section-heading">
+        <span>INTELLIGENT FEATURES</span>
+        <h2>Built for Safer Conversations</h2>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">⚠️</div>
+            <h3>Threat Detection</h3>
+            <p>Identify threatening language and potentially dangerous statements.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">😡</div>
+            <h3>Aggression Analysis</h3>
+            <p>Detect anger, hostility, abusive and aggressive communication.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🎭</div>
+            <h3>Manipulation Detection</h3>
+            <p>Recognize pressure tactics, coercion and suspicious persuasion.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">💳</div>
+            <h3>Fraud Detection</h3>
+            <p>Identify suspicious financial and scam-related conversation patterns.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Risk Scoring</h3>
+            <p>Generate an overall risk score based on detected indicators.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔔</div>
+            <h3>Early Warning</h3>
+            <p>Highlight potentially risky conversations before situations escalate.</p>
+        </div>
+    </div>
+</section>
+
+<section class="workflow">
+    <div class="section-heading">
+        <span>HOW IT WORKS</span>
+        <h2>From Conversation to Risk Insight</h2>
+    </div>
+
+    <div class="workflow-grid">
+        <div class="step">
+            <div>01</div>
+            <h3>Collect</h3>
+            <p>Conversation text is provided to the system.</p>
+        </div>
+
+        <div class="step">
+            <div>02</div>
+            <h3>Process</h3>
+            <p>NLP techniques analyze language and context.</p>
+        </div>
+
+        <div class="step">
+            <div>03</div>
+            <h3>Detect</h3>
+            <p>Risk indicators and categories are identified.</p>
+        </div>
+
+        <div class="step">
+            <div>04</div>
+            <h3>Respond</h3>
+            <p>A risk score and actionable insight are generated.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div>
+        <span>MAKE CONVERSATIONS SAFER</span>
+        <h2>Detect Risk. Understand Context. Act Early.</h2>
+        <p>Use AI-powered conversation intelligence to identify potential risks.</p>
+    </div>
+    <button onclick="scrollToAnalyzer()">Analyze Conversation →</button>
+</section>
+
+</main>
+
+<footer>
+    <div class="footer-logo">🛡️ RiskSense</div>
+    <p>AI-Based Conversation Risk Detection System</p>
+    <span>© 2026 RiskSense. Academic Project.</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
